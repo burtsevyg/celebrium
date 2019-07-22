@@ -1,0 +1,5 @@
+rootProject.name = 'celebrium'
+include 'celebrium-core'
+include 'celebrium-utils'
+include 'celebrium-web'
+
