@@ -1,0 +1,4 @@
+dependencies {
+    api project(':celebrium-utils')
+    api 'ru.yandex.qatools.allure:allure-testng-adaptor:1.5.3'
+}

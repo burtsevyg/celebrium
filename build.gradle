@@ -1,30 +1,9 @@
-buildscript {
-    ext.kotlin_version = '1.2.21'
-    ext.artifactory_plugin_version = '4.5.2'
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-    dependencies {
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:$artifactory_plugin_version"
-    }
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.3.41'
+//    id 'com.jfrog.bintray' version '0.4.1'
 }
 
-subprojects {
-
-    group 'io.celebrium'
-    version '0.0.7'
-
-    apply plugin: 'java'
-    apply plugin: 'kotlin'
-    apply plugin: 'maven'
-    apply plugin: 'maven-publish'
-    apply plugin: 'com.jfrog.artifactory'
-
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
-
+allprojects {
     repositories {
         jcenter()
         mavenCentral()
@@ -34,80 +13,17 @@ subprojects {
         maven { url "https://jitpack.io" }
         maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
     }
-
-    compileKotlin {
-        kotlinOptions {
-            jvmTarget = "1.8"
-            javaParameters = true
-        }
-    }
-
-    dependencies {
-        compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    }
-
-    artifactory {
-        contextUrl = 'http://172.19.225.50:3006/artifactory'
-        publish {
-            repository {
-                repoKey = "libs-release-local"
-                username = "deploy_user"
-                password = "o9p0[-]="
-                maven = true
-            }
-            defaults {
-                publications ('mavenJava')
-                publishPom = true
-            }
-        }
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-                pom.withXml {
-                    def root = asNode()
-                    root.remove(root.get("dependencies"))
-                    def dependenciesNode = root.appendNode('dependencies')
-                    configurations.compile.allDependencies.each {
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', it.group)
-                        dependencyNode.appendNode('artifactId', it.name)
-                        dependencyNode.appendNode('version', it.version)
-                    }
-                }
-            }
-        }
-    }
-
 }
 
-project(":celebrium-core") {
-    dependencies {
-        compile ('io.github.config4k:config4k:0.3.0') {
-            exclude group: 'org.jetbrains.kotlin'
-        }
-        compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
-        compile group: 'org.seleniumhq.selenium', name: 'htmlunit-driver', version: '2.34.0'
-        compile group: 'org.seleniumhq.selenium', name: 'selenium-remote-driver', version: '3.141.59'
-        compile group: 'ru.stqa.selenium', name: 'webdriver-factory', version: '3.0'
-        compile group: 'org.testng', name: 'testng', version: '6.11'
-    }
-}
+subprojects {
+    group 'io.celebrium'
+    version '0.0.7'
 
-project(":celebrium-utils") {
-    dependencies {
-        compile "io.celebrium:celebrium-core:$version"
-        compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
-        compile group: 'javax.mail', name: 'mail', version: '1.4.7'
-        compile group: 'ru.yandex.qatools.ashot', name: 'ashot', version: '1.5.4'
-    }
-}
+    apply plugin: 'kotlin'
 
-project(":celebrium-web") {
     dependencies {
-        compile "io.celebrium:celebrium-utils:$version"
-        compile group: 'ru.yandex.qatools.allure', name: 'allure-testng-adaptor', version: '1.5.3'
+        implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+        testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
     }
 }
