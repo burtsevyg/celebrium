@@ -1,6 +1,18 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.3.41'
-//    id 'com.jfrog.bintray' version '0.4.1'
+    id "com.jfrog.bintray" version "1.+" apply false
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv('BINTRAY_KEY')
+    pkg {
+        repo = 'generic'
+        name = 'celebrium'
+        userOrg = 'bintray_user'
+        licenses = ['Apache-2.0']
+        vcsUrl = 'https://github.com/bintray/gradle-bintray-plugin.git'
+    }
 }
 
 allprojects {
@@ -20,6 +32,7 @@ subprojects {
     version '0.0.7'
 
     apply plugin: 'kotlin'
+    apply plugin: 'com.jfrog.bintray'
 
     dependencies {
         implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
