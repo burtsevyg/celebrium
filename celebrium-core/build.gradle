@@ -1,8 +1,8 @@
 dependencies {
-    api 'io.github.config4k:config4k:0.4.1'
-    api 'org.seleniumhq.selenium:selenium-java:3.141.59'
-    api 'org.testng:testng:6.11'
-    implementation 'org.seleniumhq.selenium:htmlunit-driver:2.34.0'
-    implementation 'org.seleniumhq.selenium:selenium-remote-driver:3.141.59'
-    implementation 'ru.stqa.selenium:webdriver-factory:3.0'
+    compile 'io.github.config4k:config4k:0.4.1'
+    compile 'org.seleniumhq.selenium:selenium-java:3.141.59'
+    compile 'org.testng:testng:6.11'
+    compile 'org.seleniumhq.selenium:htmlunit-driver:2.34.0'
+    compile 'org.seleniumhq.selenium:selenium-remote-driver:3.141.59'
+    compile 'ru.stqa.selenium:webdriver-factory:3.0'
 }

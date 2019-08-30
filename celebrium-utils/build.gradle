@@ -1,6 +1,6 @@
 dependencies {
     compile project(':celebrium-core')
-    api 'ch.qos.logback:logback-classic:1.2.3'
-    api 'ru.yandex.qatools.ashot:ashot:1.5.4'
-    implementation 'javax.mail:mail:1.4.7'
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'ru.yandex.qatools.ashot:ashot:1.5.4'
+    compile 'javax.mail:mail:1.4.7'
 }

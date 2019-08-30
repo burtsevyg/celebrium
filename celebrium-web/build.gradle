@@ -1,4 +1,4 @@
 dependencies {
-    api project(':celebrium-utils')
-    api 'ru.yandex.qatools.allure:allure-testng-adaptor:1.5.3'
+    compile project(':celebrium-utils')
+    compile 'ru.yandex.qatools.allure:allure-testng-adaptor:1.5.3'
 }
